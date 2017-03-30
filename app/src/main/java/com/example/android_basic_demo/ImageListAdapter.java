@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,10 @@ ImageListAdapter extends BaseAdapter {
 
     private List<ListDatum> mEntries = new ArrayList<>();
 
-    private final ImageDownloader mImageDownloader = new ImageDownloader();
-
     public ImageListAdapter(Context context) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mImageDownloader.setMode(ImageDownloader.Mode.CORRECT);
     }
 
     @Override
@@ -61,8 +59,13 @@ ImageListAdapter extends BaseAdapter {
         TextView titleText = (TextView) itemView.findViewById(R.id.listTitle);
         TextView descriptionText = (TextView) itemView.findViewById(R.id.listDescription);
 
+
+
+
         String imageUrl = mEntries.get(position).getUrl();
-        mImageDownloader.download(imageUrl, imageView);
+
+        Glide.with(mContext).load(imageUrl).centerCrop().crossFade().into(imageView);
+
 
         String title = mEntries.get(position).getText();
         titleText.setText(title);
