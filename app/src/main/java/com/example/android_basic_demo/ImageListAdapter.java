@@ -59,24 +59,21 @@ ImageListAdapter extends BaseAdapter {
         TextView titleText = (TextView) itemView.findViewById(R.id.listTitle);
         TextView descriptionText = (TextView) itemView.findViewById(R.id.listDescription);
 
-
-
-
-        String imageUrl = mEntries.get(position).getUrl();
+        final String imageUrl = mEntries.get(position).getUrl();
 
         Glide.with(mContext).load(imageUrl).centerCrop().crossFade().into(imageView);
 
 
         String title = mEntries.get(position).getText();
         titleText.setText(title);
-        final String description = mEntries.get(position).getSummary();
+        String description = mEntries.get(position).getSummary();
         descriptionText.setText(description);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PicDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("p1", description);
+                bundle.putString("p1", imageUrl);
                 intent.putExtra("p2", bundle);
                 mContext.startActivity(intent, bundle);
             }

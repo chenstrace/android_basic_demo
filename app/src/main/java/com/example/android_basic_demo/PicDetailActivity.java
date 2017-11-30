@@ -2,7 +2,10 @@ package com.example.android_basic_demo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 
 public class PicDetailActivity extends Activity {
@@ -12,9 +15,9 @@ public class PicDetailActivity extends Activity {
         setContentView(R.layout.pic_detail);
 
         Bundle b = getIntent().getBundleExtra("p2");
-        String info = b.getString("p1");
+        String imageUrl = b.getString("p1");
 
-        TextView textView = (TextView) findViewById(R.id.description);
-        textView.setText(info);
+        ImageView imageView = (ImageView) findViewById(R.id.pic_detail);
+        Glide.with(this).load(imageUrl).crossFade().into(imageView);
     }
 }

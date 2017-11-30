@@ -27,8 +27,7 @@ public class MainActivity extends Activity {
     PullToRefreshListView mListView;
     private ImageListAdapter mAdapter;
 
-    //private PtrClassicFrameLayout m_ptrFrame;
-    private String baseUrl = "http://wapi.reotest.com/";
+    private String baseUrl = "http://wapi.reotest.com:8585/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
         mAdapter = new ImageListAdapter(this);
         mListView = (PullToRefreshListView) this.findViewById(R.id.pl_refresh);
         mListView.setAdapter(mAdapter);
-        mListView.setMode(PullToRefreshBase.Mode.BOTH);
+        mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
 
         mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -62,8 +61,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    protected void makeRequest()
-    {
+    protected void makeRequest() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(3, TimeUnit.SECONDS);
         Retrofit.Builder retrofit = new Retrofit.Builder();
@@ -79,8 +77,7 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 Log.i("cjl", " --------success-------- " + response.body());
-                if (response.body() != null)
-                {
+                if (response.body() != null) {
                     mAdapter.upDateEntries(response.body().getListData());
                 }
                 mListView.onRefreshComplete();

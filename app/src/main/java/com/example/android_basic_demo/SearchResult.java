@@ -2,6 +2,7 @@
 package com.example.android_basic_demo;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
